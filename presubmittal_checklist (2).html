@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mixed-Use Adaptive Reuse — Pre-Submittal Checklist</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F7F6F3;
+    --surface: #FFFFFF;
+    --surface2: #F0EEE9;
+    --border: #E0DDD6;
+    --border2: #C8C4BB;
+    --text: #1A1916;
+    --text2: #6B6860;
+    --text3: #9B9890;
+    --blue-bg: #E8F0FA; --blue-text: #1A4A8A; --blue-border: #B5CFF0;
+    --green-bg: #E6F4E8; --green-text: #1A5C2A; --green-border: #9FD4A8;
+    --red-bg: #FAE8E8; --red-text: #7A1A1A; --red-border: #F0B5B5;
+    --amber-bg: #FAF0E0; --amber-text: #7A4A0A; --amber-border: #F0D090;
+    --teal-bg: #E0F4EF; --teal-text: #0A4A38; --teal-border: #90D4C0;
+    --purple-bg: #EEECFA; --purple-text: #2A1A7A; --purple-border: #C0B8F0;
+    --gray-bg: #F0EEE9; --gray-text: #3A3830; --gray-border: #C8C4BB;
+    --accent: #2B5CE6;
+    --radius: 6px;
+    --radius-lg: 10px;
+  }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  .page { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+  .header-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  .header-addr {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--text3);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  h1 {
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: -.02em;
+  }
+  .header-meta {
+    font-size: 12px;
+    color: var(--text2);
+    margin-top: 4px;
+  }
+
+  .stats-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 0; }
+  .stat {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 99px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text2);
+    white-space: nowrap;
+  }
+  .stat.green { background: var(--green-bg); color: var(--green-text); border-color: var(--green-border); }
+  .stat.red { background: var(--red-bg); color: var(--red-text); border-color: var(--red-border); }
+
+  .toolbar {
+    display: flex; gap: 8px; margin-bottom: 1.25rem; flex-wrap: wrap; align-items: center;
+    justify-content: space-between;
+  }
+  .filters { display: flex; gap: 6px; flex-wrap: wrap; }
+  .filter-btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    padding: 5px 12px;
+    border-radius: 99px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    background: var(--surface);
+    color: var(--text2);
+    transition: all .15s;
+    letter-spacing: .02em;
+  }
+  .filter-btn:hover { border-color: var(--border2); color: var(--text); }
+  .filter-btn.active { background: var(--text); color: #fff; border-color: var(--text); }
+
+  .export-btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    padding: 5px 14px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border2);
+    cursor: pointer;
+    background: var(--surface);
+    color: var(--text);
+    transition: all .15s;
+    letter-spacing: .02em;
+  }
+  .export-btn:hover { background: var(--text); color: #fff; border-color: var(--text); }
+  .reset-btn:hover { background: var(--red-bg) !important; color: var(--red-text) !important; border-color: var(--red-border) !important; }
+
+  .section { margin-bottom: 1rem; }
+
+  .sec-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    user-select: none;
+    transition: background .12s;
+  }
+  .sec-header:hover { background: var(--surface2); }
+  .sec-header.collapsed { border-radius: var(--radius-lg); }
+
+  .sec-arrow {
+    font-size: 10px;
+    color: var(--text3);
+    transition: transform .2s;
+    flex-shrink: 0;
+  }
+  .sec-arrow.open { transform: rotate(90deg); }
+
+  .sec-label { font-size: 13px; font-weight: 500; flex: 1; color: var(--text); }
+  .sec-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 400;
+    letter-spacing: .02em;
+    flex-shrink: 0;
+  }
+  .badge-plan { background: var(--blue-bg); color: var(--blue-text); border: 1px solid var(--blue-border); }
+  .badge-build { background: var(--green-bg); color: var(--green-text); border: 1px solid var(--green-border); }
+  .badge-fire { background: var(--red-bg); color: var(--red-text); border: 1px solid var(--red-border); }
+  .badge-energy { background: var(--amber-bg); color: var(--amber-text); border: 1px solid var(--amber-border); }
+  .badge-coastal { background: var(--teal-bg); color: var(--teal-text); border: 1px solid var(--teal-border); }
+  .badge-env { background: var(--purple-bg); color: var(--purple-text); border: 1px solid var(--purple-border); }
+  .badge-sub { background: var(--gray-bg); color: var(--gray-text); border: 1px solid var(--gray-border); }
+
+  .sec-progress {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--text3);
+    min-width: 36px;
+    text-align: right;
+  }
+
+  .items-wrap {
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .item {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 11px 14px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    transition: background .1s;
+  }
+  .item:last-of-type { border-bottom: none; }
+  .item:hover { background: #FAFAF8; }
+  .item.checked { opacity: 0.55; }
+  .item.flagged { border-left: 3px solid #E24B4A; }
+  .item.answered { border-left: 3px solid #2E8A42; }
+
+  .cb-col { padding-top: 2px; flex-shrink: 0; }
+  input[type=checkbox] {
+    width: 14px; height: 14px;
+    cursor: pointer;
+    accent-color: #2E8A42;
+    border-radius: 3px;
+  }
+
+  .item-body { flex: 1; min-width: 0; }
+  .item-q {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .item.checked .item-q { text-decoration: line-through; color: var(--text3); }
+
+  .win-tag {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    background: var(--amber-bg);
+    color: var(--amber-text);
+    border: 1px solid var(--amber-border);
+    margin-left: 6px;
+    vertical-align: middle;
+    letter-spacing: .03em;
+    white-space: nowrap;
+  }
+
+  .item-sub {
+    font-size: 12px;
+    color: var(--text2);
+    margin-top: 3px;
+    line-height: 1.45;
+  }
+  .item-cite {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text3);
+    margin-top: 3px;
+    letter-spacing: .01em;
+  }
+
+  .note-row { display: flex; gap: 6px; margin-top: 7px; align-items: flex-start; }
+  textarea.note {
+    flex: 1;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 12px;
+    padding: 6px 9px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--text);
+    resize: none;
+    min-height: 32px;
+    line-height: 1.4;
+    transition: border-color .15s;
+  }
+  textarea.note:focus { outline: none; border-color: var(--accent); background: var(--surface); }
+  textarea.note::placeholder { color: var(--text3); }
+
+  .action-btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    padding: 4px 9px;
+    border-radius: 99px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    background: var(--surface);
+    color: var(--text2);
+    white-space: nowrap;
+    transition: all .12s;
+    flex-shrink: 0;
+  }
+  .action-btn:hover { border-color: var(--border2); color: var(--text); }
+  .action-btn.flag.on { background: var(--red-bg); color: var(--red-text); border-color: var(--red-border); }
+  .action-btn.ans.on { background: var(--green-bg); color: var(--green-text); border-color: var(--green-border); }
+
+  .add-row {
+    display: flex; gap: 8px; padding: 10px 14px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  }
+  .add-input {
+    flex: 1;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 12px;
+    padding: 6px 10px;
+    border-radius: var(--radius);
+    border: 1px dashed var(--border2);
+    background: transparent;
+    color: var(--text);
+  }
+  .add-input:focus { outline: none; border-style: solid; border-color: var(--accent); background: var(--surface); }
+  .add-input::placeholder { color: var(--text3); }
+  .add-submit {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    padding: 6px 14px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border2);
+    cursor: pointer;
+    background: var(--surface);
+    color: var(--text);
+    white-space: nowrap;
+    transition: all .12s;
+  }
+  .add-submit:hover { background: var(--text); color: #fff; border-color: var(--text); }
+
+  .print-note {
+    font-size: 11px;
+    color: var(--text3);
+    text-align: center;
+    margin-top: 2rem;
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: .03em;
+  }
+
+  @media print {
+    body { background: white; }
+    .toolbar, .add-row, .note-row, .print-note { display: none !important; }
+    .item { break-inside: avoid; }
+    .sec-header { break-after: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="header-top">
+      <div>
+        <div class="header-addr">Mixed-Use Adaptive Reuse · SPA-11 / Coastal Zone / –HE Overlay</div>
+        <h1>Pre-Submittal Question Checklist</h1>
+        <div class="header-meta">Attic-to-residential adaptive reuse · Community Development pre-submittal meeting</div>
+      </div>
+      <div class="stats-row" id="stats-row">
+        <span class="stat" id="stat-open">— open</span>
+        <span class="stat red" id="stat-flagged">— flagged</span>
+        <span class="stat green" id="stat-answered">— answered</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <div class="filters">
+      <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
+      <button class="filter-btn" onclick="setFilter('open',this)">Open</button>
+      <button class="filter-btn" onclick="setFilter('flagged',this)">Flagged</button>
+      <button class="filter-btn" onclick="setFilter('answered',this)">Answered</button>
+      <button class="filter-btn" onclick="setFilter('writein',this)">Need in writing</button>
+    </div>
+    <button class="export-btn" onclick="printChecklist()">Print / export</button>
+    <button class="export-btn reset-btn" onclick="resetAll()">Reset all</button>
+    <span id="save-badge" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text3);letter-spacing:.02em;"></span>
+  </div>
+
+  <div id="sections-wrap"></div>
+
+  <div class="print-note">Mixed-Use Adaptive Reuse · Pre-Submittal Checklist · April 2026</div>
+</div>
+
+<script>
+const SECTIONS = [
+  { id:"zoning", label:"Zoning & entitlement", badge:"badge-plan", badgeText:"Planning", items:[
+    { id:"z1", q:"Does this project require a Precise Development Plan (PDP), or does the 'second story / smaller projects' carve-out apply?", sub:"Frame as: no ground-floor scope of work. Confirm in writing either way.", cite:"§17.40.180(A); §17.38.550(H)(5)(b)", writein:true },
+    { id:"z2", q:"Does §17.40.180(B)(7) shield this project from current bulk/site standards given the building pre-dates 12/14/2023?", sub:"Ask the Community Development Director directly.", cite:"§17.40.180(B)(7); §17.52.020/030", writein:true },
+    { id:"z3", q:"How does staff calculate GFA for FAR — does the attic count as 'new floor area'? Does the stairwell count toward the 50% residential threshold?", sub:"Our calc: 1,544 SF residential (50.4%) vs 1,520 SF commercial.", cite:"§17.40.180(B)(1); §17.04 GFA definition" },
+    { id:"z4", q:"Are 4 existing tandem spaces sufficient for a single residential unit, or will additional spaces or in-lieu fees be required?", sub:"Downtown commercial exemption established. Question is residential only.", cite:"§17.44.040; §17.44.070", writein:true },
+    { id:"z5", q:"Is a variance needed for any nonconforming condition (setbacks, open space), and if so, can it run concurrently with the PDP?", cite:"§17.54; §17.52" },
+    { id:"z6", q:"Is CEQA categorical exemption (§15301 existing facility conversion) confirmed? Does staff anticipate any exception?", sub:"Get verbal yes; ask for determination letter if uncertain.", cite:"CEQA §15301" },
+  ]},
+  { id:"setbacks", label:"Setbacks — pre-existing building", badge:"badge-plan", badgeText:"Planning", items:[
+    { id:"s1", q:"Confirm the zero side setbacks on both floors (1948 ground, 1992 attic) are lawfully nonconforming and carry forward with no upgrade required.", sub:"No change to envelope, no expansion — nonconformity is not exacerbated in any way.", cite:"§17.52.020/030; §17.40.180(B)(7)", writein:true },
+    { id:"s2", q:"Does the 5' front setback on the attic level already satisfy §17.38.550(E)(4)(a) for buildings under 25' height?", cite:"§17.38.550(E)(4)(a)" },
+  ]},
+  { id:"coastal", label:"Coastal development permit (CDP)", badge:"badge-coastal", badgeText:"Coastal", items:[
+    { id:"c1", q:"Does adding a single balcony door trigger a CDP, or is it categorically exempt as an interior conversion with minor exterior modification?", sub:"Even minor exterior work in the coastal zone can trigger CDP. Confirm the scope cutoff.", cite:"HBMC Ch. 17.37; Coastal Zone", writein:true },
+    { id:"c2", q:"If a CDP is required, can it be processed concurrently with the PDP? What is the realistic local approval timeline before any CCC appeal window?", sub:"CCC appeals add 6+ months — critical for scheduling.", cite:"CCC appeal window" },
+  ]},
+  { id:"ada", label:"ADA / accessibility — pre-existing building", badge:"badge-build", badgeText:"Building", items:[
+    { id:"a1", q:"Does the residential conversion trigger CBC §11B-202.4 path-of-travel obligations through the ground-floor commercial space?", sub:"If yes: scope and 20% valuation cap? We will NOT authorize commercial tenant space work without written legal confirmation.", cite:"CBC §11B-202.4", writein:true },
+    { id:"a2", q:"Confirm §17.38.550(H)(5)(b) accessibility standards are advisory for 'smaller projects / second story' — not mandatory for this project.", sub:"'Although not required' language is explicit in the code.", cite:"§17.38.550(H)(5)(b)", writein:true },
+  ]},
+  { id:"fire", label:"Fire & life safety — sprinkler scope", badge:"badge-fire", badgeText:"Fire", items:[
+    { id:"f1", q:"Under the CEBC Work Area Method, is sprinkler installation limited to the residential floor only, or does Group R creation trigger whole-building sprinklers?", sub:"Coordinate city building official + LACoFD plan check division before design is locked.", cite:"CBC §903.2.8; CEBC Work Area Method", writein:true },
+    { id:"f2", q:"Does the existing 1-hour horizontal assembly (dual 5/8\" Type X, R-19 batt, TJI/35) qualify as a fire area separation limiting whole-building sprinkler scope?", sub:"1992 permitted plans document the assembly. Key argument against whole-building sprinklers.", cite:"CBC §903.2.8 exceptions; 1992 permitted plans", writein:true },
+    { id:"f3", q:"What are the egress requirements for the residential unit — and do any require work inside the commercial tenant space?", sub:"No commercial-space work authorized without written legal requirement.", cite:"CBC Chapter 10" },
+    { id:"f4", q:"Get C-16 sprinkler contractor estimates: (a) residential floor only and (b) whole-building, for cost comparison.", sub:"Budget decision depends on which path the building official confirms." },
+  ]},
+  { id:"energy", label:"Solar mandate & Title 24 energy", badge:"badge-energy", badgeText:"Energy", items:[
+    { id:"e1", q:"Does the building official characterize this as an 'alteration' or 'change of occupancy' — and how does that affect Title 24 Part 6 energy compliance scope?", sub:"We are not opening the roof cavity. Alteration is the narrower, correct characterization.", cite:"Title 24 Part 6 §150.1; 2025 CEC", writein:true },
+    { id:"e2", q:"Does the 2025 CEC solar PV mandate apply to an interior change-of-use that does not disturb the roof structure?", sub:"Confirm with building official before engaging PV engineer on design.", cite:"2025 CEC solar mandate", writein:true },
+    { id:"e3", q:"What Title 24 elements are triggered by the new work only: balcony door (fenestration), mini-split, water heating, lighting controls?", sub:"Scope is limited because roof cavity is not being opened." },
+  ]},
+  { id:"spa11", label:"SPA-11 incentives to request", badge:"badge-coastal", badgeText:"Incentives", items:[
+    { id:"i1", q:"Request waiver or reduction of any residential parking in-lieu fee under §17.38.550(D) conservation incentives.", sub:"1948 building is exactly the structure this provision protects. Bring written incentive request.", cite:"§17.38.550(D); §17.38.560(B)" },
+    { id:"i2", q:"Request confirmation that 4 tandem spaces satisfy residential parking — no additional spaces or fees.", cite:"§17.44.070; §17.38.550(D)" },
+    { id:"i3", q:"Request waiver of any open-space or landscape standard that cannot be met on this fully built-out coastal lot.", cite:"§17.38.550(D)" },
+    { id:"i4", q:"Request reduction of PDP application fees, noticing costs, or other processing fees under the conservation incentive program.", cite:"§17.38.550(D); Master Fee Schedule eff. 12/1/2025" },
+    { id:"i5", q:"Ask whether the Housing Element Overlay (–HE) designation provides any additional streamlining or fee relief for this housing production project.", cite:"Housing Element Overlay; State housing law" },
+  ]},
+  { id:"submittals", label:"Required submittals — what can we waive?", badge:"badge-sub", badgeText:"Submittal", items:[
+    { id:"sub1", q:"Can the topographic survey be waived for this flat coastal lot? Is a boundary-only lot-line survey (~$1–2k) sufficient?", cite:"Plan Submittal Checklist" },
+    { id:"sub2", q:"Can full civil / grading sheets be waived? No grading, no new impervious surface proposed.", cite:"Plan Submittal Checklist" },
+    { id:"sub3", q:"Can structural report be deferred to building permit stage rather than required at entitlement submittal?", sub:"Structural engineer is on board — want to scope engagement correctly." },
+    { id:"sub4", q:"Is a landscape / WELO form required, or can a narrative note (no new planting) be sufficient?", cite:"WELO; Plan Submittal Checklist" },
+    { id:"sub5", q:"What plan scales and formats are acceptable for electronic submittal? Can we use existing permitted plans as base layer?", sub:"We have 1992 attic plans and ground-floor dimensions to upload." },
+    { id:"sub6", q:"What is the completeness review timeline and what triggers a 30-day clock restart?", cite:"§17.58; 30-day completeness review" },
+  ]},
+  { id:"enviro", label:"Environmental, hazmat & surveys", badge:"badge-env", badgeText:"Environmental", items:[
+    { id:"en1", q:"Is an asbestos survey required before permit issuance for a 1992 attic conversion with no demolition of existing assemblies?", sub:"1992 construction is borderline for ACMs. Clarify scope trigger — disturbance-based vs. project-type-based.", cite:"Cal/OSHA; AHERA" },
+    { id:"en2", q:"Is a lead paint assessment required given the 1948 ground floor, even if we are not disturbing ground-floor finishes?", sub:"Pre-1978 construction = likely lead paint.", cite:"Cal/OSHA §1532.1" },
+    { id:"en3", q:"Is the property on the Cortese List? Does the hazardous waste certification require anything beyond a standard database check?", cite:"Cortese List; Supplemental Info Form" },
+  ]},
+  { id:"fees", label:"Estimated fees — get itemized list", badge:"badge-sub", badgeText:"Fees", items:[
+    { id:"fe1", q:"Request itemized fee estimate from staff before leaving the pre-submittal meeting.", sub:"Ask for current Master Fee Schedule (eff. 12/1/2025). PDP app ~$2–5k; noticing ~$500; env review ~$100–1k." },
+    { id:"fe2", q:"Is the $200 informal pre-submittal meeting fee applied toward the PDP application fee?", cite:"Master Fee Schedule" },
+    { id:"fe3", q:"What is the building permit plan check fee for a residential alteration of ~1,544 SF?", sub:"Estimate: $1–3k. Confirm before budgeting." },
+    { id:"fe4", q:"What are the utility connection fees for adding a residential unit (water, sewer)?", sub:"Utility capacity fees can be a quiet schedule-killer. Flush out early." },
+  ]},
+  { id:"phase2", label:"Phase 2 — future expansion entitlement", badge:"badge-plan", badgeText:"Planning", items:[
+    { id:"p1", q:"Can Phase 2 (parking lot expansion + loft over attic) be entitled simultaneously with Phase 1, then permitted and built sequentially?", sub:"Early entitlement locks in today's code and reduces future re-entitlement risk.", cite:"Vesting; §17.52" },
+    { id:"p2", q:"If Phase 2 is entitled now, does that entitlement vest against future code changes for the Phase 2 scope?", cite:"Vesting rights; 2025 CBC effective date" },
+  ]},
+];
+
+const STORAGE_KEY = 'mixeduse_checklist_v1';
+let state = {};
+let activeFilter = 'all';
+
+function initState() {
+  SECTIONS.forEach(s => s.items.forEach(it => {
+    state[it.id] = { checked:false, flagged:false, answered:false, note:'' };
+  }));
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (parsed.state) {
+        Object.assign(state, parsed.state);
+      }
+      if (parsed.customItems) {
+        parsed.customItems.forEach(ci => {
+          const sec = SECTIONS.find(s => s.id === ci.secId);
+          if (sec && !sec.items.find(it => it.id === ci.id)) {
+            sec.items.push({ id:ci.id, q:ci.q, sub:'', cite:'custom' });
+            if (!state[ci.id]) state[ci.id] = { checked:false, flagged:false, answered:false, note:'' };
+          }
+        });
+      }
+      showSavedBadge(parsed.savedAt);
+    }
+  } catch(e) {}
+}
+
+function persist() {
+  try {
+    const customItems = [];
+    SECTIONS.forEach(sec => {
+      sec.items.forEach(it => {
+        if (it.cite === 'custom') customItems.push({ secId: sec.id, id: it.id, q: it.q });
+      });
+    });
+    const payload = { state, customItems, savedAt: new Date().toISOString() };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+    showSavedBadge(payload.savedAt);
+  } catch(e) {}
+}
+
+function showSavedBadge(isoStr) {
+  const el = document.getElementById('save-badge');
+  if (!el) return;
+  if (!isoStr) { el.textContent = ''; return; }
+  const d = new Date(isoStr);
+  const fmt = d.toLocaleDateString('en-US', { month:'short', day:'numeric' }) + ' ' +
+              d.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit' });
+  el.textContent = 'Saved ' + fmt;
+}
+
+function resetAll() {
+  if (!confirm('Reset all checkboxes, flags, answers, and notes? This cannot be undone.')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  SECTIONS.forEach(sec => {
+    sec.items = sec.items.filter(it => it.cite !== 'custom');
+  });
+  state = {};
+  SECTIONS.forEach(s => s.items.forEach(it => {
+    state[it.id] = { checked:false, flagged:false, answered:false, note:'' };
+  }));
+  showSavedBadge(null);
+  renderAll();
+}
+
+initState();
+
+function renderAll() {
+  updateStats();
+  const wrap = document.getElementById('sections-wrap');
+  wrap.innerHTML = '';
+  SECTIONS.forEach(sec => {
+    const visItems = sec.items.filter(it => itemVisible(it));
+    if (!visItems.length) return;
+
+    const total = sec.items.length;
+    const done = sec.items.filter(it => state[it.id].checked || state[it.id].answered).length;
+
+    const secDiv = document.createElement('div');
+    secDiv.className = 'section';
+
+    const hdr = document.createElement('div');
+    hdr.className = 'sec-header';
+
+    const arrow = document.createElement('span');
+    arrow.className = 'sec-arrow open';
+    arrow.textContent = '▶';
+
+    const lbl = document.createElement('span');
+    lbl.className = 'sec-label';
+    lbl.textContent = sec.label;
+
+    const badge = document.createElement('span');
+    badge.className = 'sec-badge ' + sec.badge;
+    badge.textContent = sec.badgeText;
+
+    const prog = document.createElement('span');
+    prog.className = 'sec-progress';
+    prog.textContent = done + '/' + total;
+
+    hdr.appendChild(arrow);
+    hdr.appendChild(lbl);
+    hdr.appendChild(badge);
+    hdr.appendChild(prog);
+
+    const itemsWrap = document.createElement('div');
+    itemsWrap.className = 'items-wrap';
+
+    visItems.forEach(it => itemsWrap.appendChild(buildItem(it)));
+
+    hdr.onclick = () => {
+      const isOpen = arrow.classList.toggle('open');
+      itemsWrap.style.display = isOpen ? '' : 'none';
+      addRow.style.display = isOpen ? '' : 'none';
+    };
+
+    const addRow = document.createElement('div');
+    addRow.className = 'add-row';
+    const inp = document.createElement('input');
+    inp.className = 'add-input';
+    inp.type = 'text';
+    inp.placeholder = '+ add a question to this section…';
+    const btn = document.createElement('button');
+    btn.className = 'add-submit';
+    btn.textContent = 'Add';
+    btn.onclick = () => {
+      const txt = inp.value.trim();
+      if (!txt) return;
+      const newId = sec.id + '_c_' + Date.now();
+      sec.items.push({ id:newId, q:txt, sub:'', cite:'custom' });
+      state[newId] = { checked:false, flagged:false, answered:false, note:'' };
+      inp.value = '';
+      persist();
+      renderAll();
+    };
+    addRow.appendChild(inp);
+    addRow.appendChild(btn);
+
+    secDiv.appendChild(hdr);
+    secDiv.appendChild(itemsWrap);
+    secDiv.appendChild(addRow);
+    wrap.appendChild(secDiv);
+  });
+}
+
+function buildItem(it) {
+  const s = state[it.id];
+  const div = document.createElement('div');
+  div.className = 'item' + (s.checked ? ' checked' : '') + (s.flagged ? ' flagged' : '') + (s.answered ? ' answered' : '');
+
+  const cbCol = document.createElement('div');
+  cbCol.className = 'cb-col';
+  const cb = document.createElement('input');
+  cb.type = 'checkbox';
+  cb.checked = s.checked;
+  cb.onchange = () => { s.checked = cb.checked; persist(); renderAll(); };
+  cbCol.appendChild(cb);
+
+  const body = document.createElement('div');
+  body.className = 'item-body';
+
+  const qDiv = document.createElement('div');
+  qDiv.className = 'item-q';
+  qDiv.textContent = it.q;
+  if (it.writein) {
+    const tag = document.createElement('span');
+    tag.className = 'win-tag';
+    tag.textContent = 'in writing';
+    qDiv.appendChild(tag);
+  }
+  body.appendChild(qDiv);
+
+  if (it.sub) {
+    const subDiv = document.createElement('div');
+    subDiv.className = 'item-sub';
+    subDiv.textContent = it.sub;
+    body.appendChild(subDiv);
+  }
+  if (it.cite) {
+    const citeDiv = document.createElement('div');
+    citeDiv.className = 'item-cite';
+    citeDiv.textContent = it.cite;
+    body.appendChild(citeDiv);
+  }
+
+  const noteRow = document.createElement('div');
+  noteRow.className = 'note-row';
+
+  const ta = document.createElement('textarea');
+  ta.className = 'note';
+  ta.placeholder = 'Notes / answer received…';
+  ta.rows = 1;
+  ta.value = s.note;
+  ta.oninput = () => {
+    s.note = ta.value;
+    ta.style.height = 'auto';
+    ta.style.height = ta.scrollHeight + 'px';
+    persist();
+  };
+  if (s.note) setTimeout(() => { ta.style.height = ta.scrollHeight + 'px'; }, 0);
+
+  const flagBtn = document.createElement('button');
+  flagBtn.className = 'action-btn flag' + (s.flagged ? ' on' : '');
+  flagBtn.textContent = s.flagged ? 'Flagged' : 'Flag';
+  flagBtn.onclick = () => { s.flagged = !s.flagged; persist(); renderAll(); };
+
+  const ansBtn = document.createElement('button');
+  ansBtn.className = 'action-btn ans' + (s.answered ? ' on' : '');
+  ansBtn.textContent = s.answered ? 'Answered' : 'Mark answered';
+  ansBtn.onclick = () => { s.answered = !s.answered; if (s.answered) s.flagged = false; persist(); renderAll(); };
+
+  noteRow.appendChild(ta);
+  noteRow.appendChild(flagBtn);
+  noteRow.appendChild(ansBtn);
+  body.appendChild(noteRow);
+
+  div.appendChild(cbCol);
+  div.appendChild(body);
+  return div;
+}
+
+function itemVisible(it) {
+  const s = state[it.id];
+  if (activeFilter === 'all') return true;
+  if (activeFilter === 'open') return !s.checked && !s.answered;
+  if (activeFilter === 'flagged') return s.flagged;
+  if (activeFilter === 'answered') return s.answered;
+  if (activeFilter === 'writein') return !!it.writein;
+  return true;
+}
+
+function setFilter(f, btn) {
+  activeFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderAll();
+}
+
+function updateStats() {
+  let open = 0, flagged = 0, answered = 0;
+  SECTIONS.forEach(s => s.items.forEach(it => {
+    const st = state[it.id];
+    if (st.answered) answered++;
+    else if (st.flagged) flagged++;
+    else if (!st.checked) open++;
+  }));
+  document.getElementById('stat-open').textContent = open + ' open';
+  document.getElementById('stat-flagged').textContent = flagged + ' flagged';
+  document.getElementById('stat-answered').textContent = answered + ' answered';
+}
+
+function printChecklist() { window.print(); }
+
+renderAll();
+</script>
+</body>
+</html>
